@@ -1,0 +1,45 @@
+<h3>一、说明</h3>
+<blockquote>
+    <p>取消事件的默认动作。</p>
+    <p>该方法将通知 Web 浏览器不要执行与事件关联的默认动作（如果存在这样的动作）。例如，如果 type 属性是 "submit"，在事件传播的任意阶段可以调用任意的事件句柄，通过调用该方法，可以阻止提交表单。注意，如果 Event 对象的 cancelable 属性是 fasle，那么就没有默认动作，或者不能阻止默认动作。无论哪种情况，调用该方法都没有作用。</p>
+</blockquote>
+<h3>二、语法</h3>
+<pre>
+event.preventDefault()
+</pre>
+<h3>三、示例</h3>
+<h4>3.1 阻止&lt;a&gt;元素跳转</h4>
+<pre>
+&lt;a href=&quot;http://www.mazey.net/baby/blog&quot; target=&quot;_blank&quot; id=&quot;a-prevent&quot;&gt;点击我看会不会跳转&lt;/a&gt;
+&lt;script&gt;
+document.getElementById(&#39;a-prevent&#39;).addEventListener(&#39;click&#39;,function(e){
+&nbsp; &nbsp; var eObj = e || window.event;
+&nbsp; &nbsp; eObj.preventDefault();
+});
+&lt;/script&gt;
+</pre>
+<a href="http://www.mazey.net/baby/blog" target="_blank" id="a-prevent">点击我看会不会跳转</a>
+<script>
+document.getElementById('a-prevent').addEventListener('click',function(e){
+    var eObj = e || window.event;
+    eObj.preventDefault();
+});
+</script>
+<h4>3.2 禁止&lt;input&gt;元素键盘输入</h4>
+<pre>
+&lt;input type=&quot;text&quot; id=&quot;input-prevent&quot; placeholder=&quot;试试能不能输入&quot; /&gt;
+&lt;script&gt;
+document.getElementById(&#39;input-prevent&#39;).addEventListener(&#39;keypress&#39;,function(e){
+&nbsp; &nbsp; var eObj = e || window.event;
+&nbsp; &nbsp; eObj.preventDefault();
+});
+&lt;/script&gt;
+</pre>
+<input type="text" id="input-prevent" placeholder="试试能不能输入" />
+<script>
+document.getElementById('input-prevent').addEventListener('keypress',function(e){
+    var eObj = e || window.event;
+    eObj.preventDefault();
+});
+</script>
+<p><a style="color:#626262;" href="http://www.mazey.net/baby/blog/archives/538" target="_blank" title="JavaScript通过preventDefault()使input[type=text]禁止输入但保留光标">JavaScript通过preventDefault()使input[type=text]禁止输入但保留光标</a></p>
