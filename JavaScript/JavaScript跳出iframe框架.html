@@ -1,0 +1,80 @@
+<h3>一、window.top</h3>
+<blockquote>
+    <p>top属性返回最顶层的先辈窗口。</p>
+    <p>该属性返回对一个顶级窗口的只读引用。如果窗口本身就是一个顶级窗口，top属性存放对窗口自身的引用。如果窗口是一个框架，那么top属性引用包含框架的顶层窗口。</p>
+</blockquote>
+<h3>二、window.self</h3>
+<blockquote>
+    <p>self属性可返回对窗口自身的只读引用。等价于Window属性。</p>
+</blockquote>
+<h3>三、window.location</h3>
+<blockquote>
+    <p>window.location（<a href="https://developer.mozilla.org/cn/docs/Web/API/Location" target="_blank" rel="nofollow">MDN</a>）对象用于获得当前页面的地址 (URL)，并把浏览器重定向到新的页面。</p>
+</blockquote>
+<h4>3.1 示例</h4>
+<pre>
+window.location = &#39;http://www.mazey.net/&#39;; //网站将跳转到后面的网址
+</pre>
+<h4>3.2 属性</h4>
+<ul>
+    <li>location.hostname返回web主机的域名</li>
+    <li>location.pathname返回当前页面的路径和文件名</li>
+    <li>location.port返回web主机的端口（80或443）</li>
+    <li>location.protocol返回所使用的web协议（http://或https://）</li>
+</ul>
+<h3>四、iframe示例</h3>
+<pre>
+&lt;h1&gt;iframe 1&lt;/h1&gt;
+&lt;button type=&quot;button&quot; id=&quot;self&quot;&gt;Show Self&lt;/button&gt;
+&lt;button type=&quot;button&quot; id=&quot;selflocation&quot;&gt;Show Self Location&lt;/button&gt;
+&lt;button type=&quot;button&quot; id=&quot;selfhref&quot;&gt;Show Self Href&lt;/button&gt;
+
+&lt;button type=&quot;button&quot; id=&quot;top&quot;&gt;Show Top&lt;/button&gt;
+&lt;button type=&quot;button&quot; id=&quot;toplocation&quot;&gt;Show Top Location&lt;/button&gt;
+&lt;button type=&quot;button&quot; id=&quot;tophref&quot;&gt;Show Top Href&lt;/button&gt;
+
+&lt;button type=&quot;button&quot; id=&quot;replace&quot;&gt;Replace Me To Whole Page&lt;/button&gt;
+
+&lt;script&gt;
+document.getElementById(&#39;self&#39;).addEventListener(&#39;click&#39;, function(){
+    alert(window.self);
+});
+document.getElementById(&#39;selflocation&#39;).addEventListener(&#39;click&#39;, function(){
+    alert(window.self.location);
+});
+document.getElementById(&#39;selfhref&#39;).addEventListener(&#39;click&#39;, function(){
+    alert(window.self.location.href);
+});
+
+document.getElementById(&#39;top&#39;).addEventListener(&#39;click&#39;, function(){
+    alert(window.top);
+});
+document.getElementById(&#39;toplocation&#39;).addEventListener(&#39;click&#39;, function(){
+    alert(window.top.location);
+});
+document.getElementById(&#39;tophref&#39;).addEventListener(&#39;click&#39;, function(){
+    alert(window.top.location.href);
+});
+
+document.getElementById(&#39;replace&#39;).addEventListener(&#39;click&#39;, function(){
+    if(window.top !== window.self){
+        window.top.location.href = window.self.location.href;
+        console.log(&#39;You replace successfully!&#39;);
+    }else{
+        console.log(&#39;You don\&#39;t need replace, i\&#39;m top!&#39;);
+    }
+});
+&lt;/script&gt;
+</pre>
+<iframe src="http://www.mazey.net/baby/iframe/iframe1.html" width="50%">
+</iframe>
+<iframe src="http://www.mazey.net/baby/iframe/iframe2.html" width="50%">
+</iframe>
+<h3>五、总结</h3>
+<p>若想页面跳出iframe在里面加上下面这段代码即可。</p>
+<pre>
+if(window.top !== window.self){ //若自身窗口不等于顶层窗口
+    window.top.location.href = window.self.location.href; //顶层窗口跳转到自身窗口
+}
+</pre>
+<p><a href="http://www.mazey.net/baby/blog/archives/547" target="_blank" title="JavaScript跳出iframe框架">JavaScript跳出iframe框架</a></p>
