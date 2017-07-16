@@ -1,0 +1,140 @@
+<h3>
+    一、说明
+</h3>
+<h4>1.1 定义和用法</h4>
+<blockquote>
+    <p>transition 属性是一个简写属性，用于设置四个过渡属性：</p>
+    <ul>
+        <li>transition-property:规定设置过渡效果的CSS属性的名称。</li>
+        <li>transition-duration:规定完成过渡效果需要多少秒或毫秒。</li>
+        <li>transition-timing-function:规定速度效果的速度曲线。</li>
+        <li>transition-delay:定义过渡效果何时开始。</li>
+    </ul>
+</blockquote>
+<h4>1.2 语法</h4>
+<blockquote>
+    <p>transition: property duration timing-function delay;</p>
+</blockquote>
+<h4>
+    1.3 transition-timing-function
+</h4>
+<h5>
+    1.3.1 语法
+</h5>
+<blockquote>
+    <p>transition-timing-function: linear|ease|ease-in|ease-out|ease-in-out|cubic-
+bezier(n,n,n,n);</p>
+</blockquote>
+<h5>
+    1.3.2 说明
+</h5>
+<blockquote>
+    <ul>
+    	<li>linear:规定以相同速度开始至结束的过渡效果（等于cubic-bezier(0,0,1,1)）。</li>
+    	<li>ease:规定慢速开始，然后变快，然后慢速结束的过渡效果（cubic-bezier(0.25,0.1,0.25,1)）。</li>
+    	<li>ease-in:规定以慢速开始的过渡效果（等于cubic-bezier(0.42,0,1,1)）。</li>
+    	<li>ease-out:规定以慢速结束的过渡效果（等于cubic-bezier(0,0,0.58,1)）。</li>
+    	<li>ease-in-out:规定以慢速开始和结束的过渡效果（等于cubic-bezier(0.42,0,0.58,1)）。</li>
+    	<li>cubic-bezier(n,n,n,n):在cubic-bezier函数中定义自己的值。可能的值是0至1之间的数值。</li>
+    </ul>
+</blockquote>
+<h3>二、示例</h3>
+<pre>
+&lt;style&gt;
+    .transition-example{
+        width: 500px;
+        height: 370px;
+        background: #ccc;
+        padding: 10px 0;
+    }
+    .transition-example:hover&gt;div{
+        margin-left: 90%;
+        transform: rotate(360deg);
+        border-radius: 5px;
+    }
+    .transition-example&gt;div{
+        width: 50px;
+        height: 50px;
+        text-align: center;
+        margin: 10px 0;
+        background-color: blue;
+        color: #fff;
+    }
+    .linear{
+        transition: all 5s linear;
+    }
+    .ease{
+        transition: all 5s ease;
+    }
+    .ease-in{
+        transition: all 5s ease-in;
+    }
+    .ease-out{
+        transition: all 5s ease-out;
+    }
+    .ease-in-out{
+        transition: all 5s ease-in-out;
+    }
+    .cubic-bezier{
+        transition: all 5s cubic-bezier(0.42,0,0.58,1);
+    }
+    
+&lt;/style&gt;
+&lt;div class=&quot;transition-example&quot;&gt;
+    &lt;div class=&quot;linear&quot;&gt;linear&lt;/div&gt;
+    &lt;div class=&quot;ease&quot;&gt;ease&lt;/div&gt;
+    &lt;div class=&quot;ease-in&quot;&gt;ease-in&lt;/div&gt;
+    &lt;div class=&quot;ease-out&quot;&gt;ease-out&lt;/div&gt;
+    &lt;div class=&quot;ease-in-out&quot;&gt;ease-in-out&lt;/div&gt;
+    &lt;div class=&quot;cubic-bezier&quot;&gt;cubic-bezier&lt;/div&gt;
+&lt;/div&gt;
+</pre>
+<style>
+    .transition-example{
+        width: 500px;
+        height: 370px;
+        background: #ccc;
+        padding: 10px 0;
+    }
+    .transition-example:hover>div{
+        margin-left: 90%;
+        transform: rotate(360deg);
+        border-radius: 5px;
+    }
+    .transition-example>div{
+        width: 50px;
+        height: 50px;
+        text-align: center;
+        margin: 10px 0;
+        background-color: blue;
+        color: #fff;
+    }
+    .linear{
+        transition: all 5s linear;
+    }
+    .ease{
+        transition: all 5s ease;
+    }
+    .ease-in{
+        transition: all 5s ease-in;
+    }
+    .ease-out{
+        transition: all 5s ease-out;
+    }
+    .ease-in-out{
+        transition: all 5s ease-in-out;
+    }
+    .cubic-bezier{
+        transition: all 5s cubic-bezier(0.42,0,0.58,1);
+    }
+    
+</style>
+<div class="transition-example">
+    <div class="linear">linear</div>
+    <div class="ease">ease</div>
+    <div class="ease-in">ease-in</div>
+    <div class="ease-out">ease-out</div>
+    <div class="ease-in-out">ease-in-out</div>
+    <div class="cubic-bezier">cubic-bezier</div>
+</div>
+<p><a href="http://www.mazey.net/baby/blog/archives/564" target="_blank" title="理解CSS3属性transition">理解CSS3属性transition</a></p>
