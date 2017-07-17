@@ -1,0 +1,22 @@
+<p>
+另外可以通过<code>return false;</code>来阻止a元素跳转事件。
+</p>
+<pre>
+&lt;script&gt;
+    function preventGO(){
+        return false;
+    }
+&lt;/script&gt;
+&lt;a href=&quot;http://www.mazey.net/baby/blog/&quot; onclick=&quot;return false;&quot;&gt;点击我看会不会跳转1&lt;/a&gt;&lt;br /&gt;
+&lt;a href=&quot;http://www.mazey.net/baby/blog/&quot; onclick=&quot;preventGO();&quot;&gt;点击我看会不会跳转2&lt;/a&gt;&lt;br /&gt;
+&lt;a href=&quot;http://www.mazey.net/baby/blog/&quot; onclick=&quot;return preventGO();&quot;&gt;点击我看会不会跳转3&lt;/a&gt;&lt;br /&gt;
+</pre>
+<script>
+    function preventGO(){
+        return false;
+    }
+</script>
+<a href="http://www.mazey.net/baby/blog/" onclick="return false;">点击我看会不会跳转1</a><br />
+<!--因为执行preventGO()返回false，但是事件onclick并没有返回值，所以2会跳转-->
+<a href="http://www.mazey.net/baby/blog/" onclick="preventGO();">点击我看会不会跳转2</a><br />
+<a href="http://www.mazey.net/baby/blog/" onclick="return preventGO();">点击我看会不会跳转3</a><br />
