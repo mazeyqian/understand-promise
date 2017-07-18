@@ -1,0 +1,83 @@
+<h3>
+    一、RegExp
+</h3>
+<h4>1.1 创建RegExp对象</h4>
+<pre>new RegExp("必选,正则表达式","可选,匹配模式g,i,m")</pre>
+<h4>1.2 RegExp对象的方法</h4>
+<p><ul>
+	<li>test:检索字符串中的指定值，返回True或False。</li>
+	<li>exec:检索字符串中的指定值，返回找到的值，没有则null。</li>
+	<li>complie:用于改变正则表达式，或增删匹配模式。</li>
+</ul></p>
+<h5>1.2.1 test()</h5>
+<pre>var r1 = new RegExp(&#39;world&#39;);
+console.log(r1.test(&#39;Hello, world!&#39;)); //true
+console.log(r1.test(&#39;Hello, World!&#39;)); //false
+var r2 = new RegExp(&#39;world&#39;, &#39;i&#39;); //大小写不敏感
+console.log(r2.test(&#39;Hello, World!&#39;)); //true
+var r3 = new RegExp(/world/i); //简写
+console.log(r3.test(&#39;Hello, World!&#39;)); //true</pre>
+<h5>1.2.2 exec()</h5>
+<pre>var r1 = new RegExp(&#39;world&#39;);
+console.log(r1.exec(&#39;Hello, world!&#39;)); //[&#39;world&#39;]
+console.log(r1.exec(&#39;Hello, World!&#39;)); //null
+var r2 = new RegExp(&#39;world&#39;, &#39;i&#39;); //大小写不敏感
+console.log(r2.exec(&#39;Hello, World!&#39;)); //[&#39;world&#39;]
+var r3 = new RegExp(/world/i); //简写
+console.log(r3.exec(&#39;Hello, World!&#39;)); //[&#39;world&#39;]
+var r4 = new RegExp(&#39;o&#39;);
+console.log(r4.exec(&#39;Hello, World!&#39;)); //[&#39;o&#39;]
+var r5 = new RegExp(&#39;o&#39;, &#39;gi&#39;);
+console.log(r5.exec(&#39;Hello, WOrld!&#39;)); //[&#39;o&#39;]
+console.log(r5.lastIndex); //5 匹配文本的第一个字符的位置，o为4，下一个位置为5
+console.log(r5.exec(&#39;Hello, WOrld!&#39;)); //[&#39;O&#39;] 匹配完第一个o后调用继续匹配
+console.log(r5.lastIndex); //9
+console.log(r5.exec(&#39;Hello, WOrld!&#39;)); //null 匹配不到返回null
+console.log(r5.lastIndex); //0 lastIndex重置为0</pre>
+<h5>1.2.3 complie()</h5>
+<pre>var r1 = new RegExp(&#39;world&#39;);
+console.log(r1.exec(&#39;Hello, world!&#39;)); //[&#39;world&#39;]
+r1.compile(&#39;o&#39;);
+console.log(r1.exec(&#39;Hello, World!&#39;)); //[&#39;o&#39;]
+r1.compile(&#39;m&#39;);
+console.log(r1.exec(&#39;Hello, World!&#39;)); //null
+var r2 = new RegExp(&#39;world&#39;);
+console.log(r2.test(&#39;Hello, world!&#39;)); //true
+r2.compile(&#39;mazey&#39;);
+console.log(r2.test(&#39;Hello, world!&#39;)); //false</pre>
+<h3>
+    二、正则表达式
+</h3>
+<p><ul>
+	<li>^$:表示匹配值的开始和结尾。</li>
+	<li>+:1+，一个或更多。</li>
+	<li>*:0+，零个或更多。</li>
+	<li>?:0/1，零个或一个。</li>
+	<li>{1,2}:1<=length<=2,长度。</li>
+	<li>():表示一个表达式的组。</li>
+	<li>[]:匹配的字符范围，我理解为一个块，很多块放在一个组()里面。</li>
+</ul></p>
+<h3>
+    三、示例
+</h3>
+<pre>&lt;form action=&quot;&quot;&gt;
+输入：&lt;input type=&quot;text&quot; name=&quot;mazey&quot; id=&quot;mazey&quot; placeholder=&quot;请输入邮箱&quot;&gt;
+&lt;input type=&quot;button&quot; value=&quot;验证&quot; onclick=&quot;check();&quot;&gt;
+&lt;/form&gt;
+&lt;script&gt;
+function check(){
+    var reg = new RegExp(&quot;^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$&quot;); //正则表达式
+    var obj = document.getElementById(&quot;mazey&quot;); //要验证的对象
+    if(obj.value === &quot;&quot;){ //输入不能为空
+        alert(&quot;输入不能为空!&quot;);
+        return false;
+    }else if(!reg.test(obj.value)){ //正则验证不通过，格式不对
+        alert(&quot;验证不通过!&quot;);
+        return false;
+    }else{
+        alert(&quot;通过！&quot;);
+        return true;
+    }
+}
+&lt;/script&gt;</pre>
+<p><a href="http://www.mazey.net/baby/blog/archives/589" target="_blank" title="JavaScript邮箱验证-正则验证">JavaScript邮箱验证-正则验证</a></p>
