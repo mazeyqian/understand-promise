@@ -1,0 +1,39 @@
+<h3 id="-mysql-">查看安装的mysql组件</h3>
+<p><code>rpm -qa | grep -i mysql</code></p>
+<pre><code>mysql57-community-release-el6-8.noarch
+mysql-community-common-5.6.37-2.el6.x86_64
+mysql-community-client-5.6.37-2.el6.x86_64
+php70w-mysql-7.0.22-2.w6.x86_64
+mysql-community-libs-5.6.37-2.el6.x86_64
+mysql-community-libs-compat-5.6.37-2.el6.x86_64
+mysql-community-server-5.6.37-2.el6.x86_64
+</code></pre><h3 id="-mysql-">查看与mysql相关的文件</h3>
+<p><code>find / -name mysql</code></p>
+<pre><code>/home/mysql
+/etc/logrotate.d/mysql
+/usr/share/mysql
+/usr/bin/mysql
+/usr/lib64/mysql
+/var/spool/mail/mysql
+/var/lib/mysql
+/var/lib/mysql/mysql
+</code></pre><p><code>whereis mysql</code></p>
+<pre><code>mysql: /usr/bin/mysql /usr/lib64/mysql /usr/share/mysql /usr/share/man/man1/mysql.1.gz
+</code></pre><h3 id="-mysql-">卸载mysql组件</h3>
+<pre><code>rpm -ev --nodeps mysql57-community-release-el6-8.noarch
+rpm -ev --nodeps mysql-community-common-5.6.37-2.el6.x86_64
+rpm -ev --nodeps mysql-community-client-5.6.37-2.el6.x86_64
+rpm -ev --nodeps mysql-community-libs-5.6.37-2.el6.x86_64
+rpm -ev --nodeps mysql-community-libs-compat-5.6.37-2.el6.x86_64
+rpm -ev --nodeps mysql-community-server-5.6.37-2.el6.x86_64
+</code></pre><h3 id="-mysql-">删除mysql相关文件</h3>
+<pre><code>rm -rf /home/mysql
+rm -rf /etc/logrotate.d/mysql
+rm -rf /usr/share/mysql
+rm -rf /usr/bin/mysql
+rm -rf /usr/lib64/mysql
+rm -rf /var/spool/mail/mysql
+rm -rf /var/lib/mysql
+rm -rf /var/lib/mysql/mysql
+</code></pre>
+<p><a href="http://blog.mazey.net/711.html" target="_blank" title="Linux彻底删除mysql5.6" style="text-decoration: none; color: #626262; cursor: default;">Linux彻底删除mysql5.6</a></p>
