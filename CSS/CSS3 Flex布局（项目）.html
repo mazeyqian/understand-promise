@@ -1,0 +1,50 @@
+<meta charset="utf-8">
+<style>
+.box{
+    background: #0074D9;
+    display: flex;
+    align-content: center;
+    width: 500px;
+    height: 500px;
+}
+.box>div[class^="item"]{
+    color: #FFFFFF;
+}
+</style>
+<div class="box">
+    <div class="item1">item1</div>
+    <div class="item2">item2</div>
+    <div class="item3">item3</div>
+    <div class="item4">item4</div>
+    <div class="item5">item5</div>
+</div>
+
+CSS3 Flex布局（项目）
+
+<h3>一、order属性</h3>
+<p>order属性定义项目的排列顺序。数值越小，排列越靠前，默认为0。</p>
+
+<h3>二、flex-grow属性</h3>
+<p>flex-grow属性定义项目的放大比例，默认为0，即如果存在剩余空间，也不放大。</p>
+<p>如果所有项目的flex-grow属性都为1，则它们将等分剩余空间（如果有的话）。如果一个项目的flex-grow属性为2，其他项目都为1，则前者占据的剩余空间将比其他项多一倍。</p>
+
+<h3>三、flex-shrink属性</h3>
+<p>flex-shrink属性定义了项目的缩小比例，默认为1，即如果空间不足，该项目将缩小。</p>
+<p>如果所有项目的flex-shrink属性都为1，当空间不足时，都将等比例缩小。如果一个项目的flex-shrink属性为0，其他项目都为1，则空间不足时，前者不缩小。负值对该属性无效。</p>
+
+<h3>四、flex-basis属性</h3>
+<p>flex-basis属性定义了在分配多余空间之前，项目占据的主轴空间（main size）。浏览器根据这个属性，计算主轴是否有多余空间。它的默认值为auto，即项目的本来大小。</p>
+<p>它可以设为跟width或height属性一样的值（比如350px），则项目将占据固定空间。</p>
+
+
+<h3>五、flex属性</h3>
+<p>flex属性是flex-grow, flex-shrink 和 flex-basis的简写，默认值为0 1 auto。后两个属性可选。</p>
+
+<h3>六、align-self属性</h3>
+<p>align-self属性允许单个项目有与其他项目不一样的对齐方式，可覆盖align-items属性。默认值为auto，表示继承父元素的align-items属性，如果没有父元素，则等同于stretch。该属性可能取6个值，除了auto，其他都与align-items属性完全一致。</p>
+
+<p><a style="text-decoration: none; color: #626262; cursor: default;" href="http://www.ruanyifeng.com/blog/2015/07/flex-grammar.html" target="_blank" title="Flex 布局教程：语法篇" rel="nofollow">Flex 布局教程：语法篇</a></p>
+
+<p><a href="http://blog.mazey.net/780.html" target="_blank" title="CSS3 Flex布局（项目）" style="text-decoration: none; color: #626262; cursor: default;">CSS3 Flex布局（项目）</a></p>
+
+CSS,CSS3,display,flex,布局
