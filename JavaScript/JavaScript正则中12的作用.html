@@ -1,0 +1,29 @@
+<h1>JavaScript正则中\1\2的作用</h1>
+
+<h3>一、示例</h3>
+<h4>1. 验证6个相同的数字</h4>
+<pre>var reg = new RegExp(/^(\d)\1{5}/g);
+var a = &#39;333333&#39;;
+if(reg.test(a)) {
+    alert(&#39;right&#39;);
+} else {
+    alert(&#39;wrong&#39;);
+}</pre>
+
+<h4>2. 验证3个相同的数字+3个相同的字母</h4>
+<pre>var reg = new RegExp(/^(\d)\1{2}([a-z])\2{2}/g);
+var a = &#39;333aa1&#39;;
+if(reg.test(a)) {
+    alert(&#39;right&#39;);
+} else {
+    alert(&#39;wrong&#39;);
+}</pre>
+
+<h3>二、解释：</h3>
+<p>\1必须与小括号配合使用。</p>
+<p>正则表达式中的小括号"()"。是代表分组的意思。 如果再其后面出现\1则是代表与第一个小括号中要匹配的内容相同。<a href="http://www.cnblogs.com/blank-string/p/6001530.html" target="_blank" title="后除" rel="nofollow">Link</a></p>
+
+<p><a href="http://blog.mazey.net/772.html" target="_blank" title="JavaScript正则中\1\2的作用" style="text-decoration: none; color: #626262; cursor: default;">JavaScript正则中\1\2的作用</a></p>
+
+
+JavaScript,JScript,正则,正则表达式
