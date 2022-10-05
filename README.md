@@ -1,3 +1,5 @@
+# Promise: 异步编程的理解和使用
+
 ## 一、什么是 `Promise`
 
 ### 1.1 `Promise` 的前世今生
@@ -57,30 +59,7 @@ new Promise( function(resolve, reject) {...} /* 执行器 */  )
 
 > ECMAScript's Promise global is just one of many Promises/A+ implementations.
 
-主流语言对于 `Promise` 的实现：[Golang/promise](https://github.com/chebyrash/promise)、[Python/promise](https://github.com/syrusakbary/promise)、[C#/Real-Serious-Games/c-sharp-promise](https://github.com/Real-Serious-Games/c-sharp-promise)、[PHP/Guzzle Promises](https://github.com/guzzle/promises)、[Java/IOU](https://github.com/ioweyou/iou-java)、[Objective-C/PromiseKit](https://github.com/dizzus/PromiseKit)、[Swift/FutureLib](https://github.com/couchdeveloper/FutureLib)、[Perl/stevan/promises-perl](https://github.com/stevan/promises-perl)。
-
-```
-// Golang Example
-func main() {
-  p1 := promise.New(func(resolve func(int), reject func(error)) {
-    factorial := findFactorial(20)
-    resolve(factorial)
-  })
-  p2 := promise.New(func(resolve func(string), reject func(error)) {
-    ip, err := fetchIP()
-    if err != nil {
-      reject(err)
-      return
-    }
-    resolve(ip)
-  })
-  factorial, _ := p1.Await()
-  fmt.Println(factorial)
-  IP, _ := p2.Await()
-  fmt.Println(IP)
-}
-// Other Code...
-```
+主流语言对于 `Promise` 的实现：[Golang/go-promise](https://github.com/fanliao/go-promise)、[Python/promise](https://github.com/syrusakbary/promise)、[C#/Real-Serious-Games/c-sharp-promise](https://github.com/Real-Serious-Games/c-sharp-promise)、[PHP/Guzzle Promises](https://github.com/guzzle/promises)、[Java/IOU](https://github.com/ioweyou/iou-java)、[Objective-C/PromiseKit](https://github.com/dizzus/PromiseKit)、[Swift/FutureLib](https://github.com/couchdeveloper/FutureLib)、[Perl/stevan/promises-perl](https://github.com/stevan/promises-perl)。
 
 #### 1.1.1 旨在解决的问题
 
@@ -486,7 +465,7 @@ async function getUserInfo () {
 
 ##### 2.4.1.2 处理条件语句
 
-当一个异步返回值是另一段逻辑的判断条件，链式调用将随着层级的叠加变得更加复杂，让人很容易让人混淆。使用 `async`&`await` 将使代码可读性变得更好。
+当一个异步返回值是另一段逻辑的判断条件，链式调用将随着层级的叠加变得更加复杂，让人很容易在代码中迷失自我。使用 `async`&`await` 将使代码可读性变得更好。
 
 ```
 // Promise
@@ -696,166 +675,7 @@ arr.reduce(async (last, curr) => {
 }, undefined)
 ```
 
-## 三、游戏联运业务中的实践
-
-### 3.1 登录流程优化
-
-游戏联运业务中的登录模块，因为使用场景的复杂性，会有一个回调函数在各个文件间（此处指 *Login.vue* 和 *State.js*）传递。若想知道这个回调函数在哪里触发、传递了什么数据，需要逐层查找逻辑，并且需要进行类型判断。
-
-![回调函数](https://blog.mazey.net/wp-content/uploads/2022/10/Func-Callback-v2-800x600-1.jpg)
-
-*Login.vue*
-
-```
-methods: {
-    comLogin() {
-        // Other Code...
-        State.quickLogin(callback); // 1
-    },
-},
-```
-
-*State.js*
-
-```
-quickLogin(callback) {
-    // Other Code...
-    if (this.canQuickLogin) {
-        this.ppQuickLogin(callback); // 2
-    } else {
-        getScript('//example.com/ppquicklogin.min.js').then(() => {
-            // Other Code...
-            this.ppQuickLogin(callback); // 2
-        });
-    }
-}
-
-ppQuickLogin(callback) {
-    // Other Code...
-    this.getUserState(callback); // 3
-}
-
-getUserState(callback) {
-    // Other Code...
-    if(isFunction(callback)) {
-        callback(this.userInfo); // 4
-    }
-}
-```
-
-使用 `Promise` 改写后，简单调用时仅需要关注**状态**和**值**（`userInfo`），无需过度关注其在上游链路经历了什么。
-
-![Promise](https://blog.mazey.net/wp-content/uploads/2022/10/Promise-User-Info-800x168-1.jpg)
-
-*Login.vue*
-
-```
-methods: {
-    async comLogin() => {
-        const userInfo = await State.quickLogin(); // 1
-        // Other Code...
-    },
-},
-```
-
-*State.js*
-
-```
-async quickLogin() {
-    // Other Code...
-    if (this.canQuickLogin) {
-        return this.ppQuickLogin(); // 2
-    } else {
-        return getScript('//example.com/ppquicklogin.min.js').then(() => {
-            // Other Code...
-            return this.ppQuickLogin(); // 2
-        });
-    }
-}
-
-async ppQuickLogin() {
-    // Other Code...
-    return this.getUserState(); // 3
-}
-
-async getUserState() {
-    // Other Code...
-    return this.userInfo;
-}
-```
-
-### 3.2 PC 游戏详情页推送至移动客户端下载
-
-当前业务背景下，PC 游戏详情页常常充当手机游戏的宣传页面，来引导用户在手机端 App 下载对应游戏。在展示/进行推送之前需要确认几个前置条件，使用回调函数往往会产生冗余代码。
-
-*index.vue*
-
-```
-methods: {
-    getSwitchStatus(callback) {
-        // Other Code...
-        if(isFunction(callback)) {
-            callback(isSwitchOn);
-        }
-    }
-    
-    getLoginStatus(callback) {
-        // Other Code...
-        if(isFunction(callback)) {
-            callback(isLogined);
-        }
-    }
-
-    pushGame() {
-        // Other Code...
-        this.getSwitchStatus(
-            isSwitchOn => {
-                if (isSwitchOn) {
-                    this.getLoginStatus(
-                        isLogined => {
-                            if (isLogined) {
-                                // Other Code...
-                            } else {
-                                this.showLoginModal();
-                            }
-                        }
-                    )
-                }
-            }
-        );
-    }
-}
-```
-
-使用 `Promise` 改写后，业务逻辑上便会更加清晰一点。
-
-*index.vue*
-
-```
-methods: {
-    async getSwitchStatus() {
-        // Other Code...
-        return isSwitchOn;
-    }
-
-    async getLoginStatus() {
-        // Other Code...
-        return isLogined;
-    }
-
-    async pushGame() {
-        // Other Code...
-        const [isSwitchOn, isLogined] = await Promise.all([this.getSwitchStatus(), this.getLoginStatus()]);
-        if (isSwitchOn && isLogined) {
-            // Other Code...
-        } else {
-            // Other Code...
-        }
-    }
-}
-```
-
-## 四、总结
+## 三、总结
 
 1. 每当要使用异步代码时，请考虑使用 `Promise`。
 2. `Promise` 中所有方法的返回类型都是 `Promise`。
